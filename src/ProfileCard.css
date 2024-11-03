@@ -1,0 +1,87 @@
+/* General styling for the card */
+.card {
+  background-color: #3b1464;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 250px;
+  margin: 20px;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Styling for the header and profile image */
+.card-header {
+  background-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  padding: 5px;
+  margin-bottom: 15px;
+}
+
+.profile-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Card body and text */
+.card-body {
+  background: linear-gradient(135deg, rgba(255,87,168,1) 0%, rgba(128,100,225,1) 100%);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+h3 {
+  font-size: 1.5em;
+  margin: 10px 0;
+  color: #ffffff;
+}
+
+p {
+  font-size: 0.9em;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+/* Social media icons */
+.social-icons a {
+  color: #ffffff;
+  margin: 0 10px;
+  font-size: 1.2em;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ff57a8;
+}
+
+/* Adding a circular background gradient */
+/* body {
+  background-color: #260254;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  left: -150px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,87,168,1) 0%, rgba(128,100,225,1) 100%);
+  z-index: -1;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  bottom: -150px;
+  right: -150px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,87,168,1) 0%, rgba(255,159,0,1) 100%);
+  z-index: -1;
+} */
+  
