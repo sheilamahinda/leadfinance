@@ -18,13 +18,13 @@ const Chatbot = () => {
 
     try {
       // Send user input to Gemini API and get response
-      const response = await fetch('https://api.gemini.com/ask', {
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyATO607OqD9IFpRshmJhgVWUEDKbiTxR1c', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer AiZaSyDJfXDqn3o1FCLgbXkf-TzMxGQ52Gt4oUg`,
+         // 'Authorization': `Bearer AIzaSyATO607OqD9IFpRshmJhgVWUEDKbiTxR1c`,
         },
-        body: JSON.stringify({ question: input }),
+        body: JSON.stringify({"contents":[{"parts":[{"text":input}]}]}),
       });
 
       // Check if the response is ok
@@ -36,7 +36,7 @@ const Chatbot = () => {
       console.log(data); // Log the response to check its structure
 
       const botResponse = {
-        text: data.answer ? data.answer : "I'm not sure how to help with that. Could you provide more details or ask something else?",
+        text: data?.candidates[0]?.content?.parts[0] ? data?.candidates[0]?.content?.parts[0]?.text : "I'm not sure how to help with that. Could you provide more details or ask something else?",
         sender: "bot",
       };
 

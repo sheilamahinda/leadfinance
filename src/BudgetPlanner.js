@@ -21,13 +21,24 @@ const BudgetPlanner = () => {
 
   const generateInsights = async () => {
     try {
-      const response = await axios.post('https://gemini-api-url.com/get-insights', {
-        income,
-        totalExpenses,
-        savingsGoal,
-      });
-      console.log(response.data); // Check the structure here
-      setInsights(response.data.insights); // Adjust based on actual response structure
+      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyATO607OqD9IFpRshmJhgVWUEDKbiTxR1c', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+         // 'Authorization': `Bearer AIzaSyATO607OqD9IFpRshmJhgVWUEDKbiTxR1c`,
+        },
+        body: JSON.stringify({"contents":[{"parts":[{"text":`My income is ${income.toString()} and my expense is as follows:
+          entertainment:${expenses.entertainment}, rent: ${expenses.rent}, groceries: ${expenses.groceries}, transportation:${expenses.transportation} and there is an optional savings goal: ${expenses.savingsGoal}, if set as 0, ignore
+           so if income is greater than expense, tell whether im doing great at budgeting or not `}]}]}),
+          });
+            // Check if the response is ok
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+      console.log(data); // Log the response to check its structure
+
+      setInsights(data?.candidates[0]?.content?.parts[0]?.text); // Adjust based on actual response structure
     } catch (error) {
       console.error("Error fetching insights from Gemini", error);
       if (error.response) {
@@ -46,11 +57,7 @@ const BudgetPlanner = () => {
     }));
   };
 
-  useEffect(() => {
-    if (income && totalExpenses && savingsGoal) {
-      generateInsights();
-    }
-  }, [income, totalExpenses, savingsGoal]);
+
 
   return (
     <div className="budget-planner">
@@ -63,7 +70,7 @@ const BudgetPlanner = () => {
       <input
         type="number"
         placeholder="Savings Goal"
-        value={savingsGoal}
+        
         onChange={(e) => setSavingsGoal(Number(e.target.value))}
       />
       <h4>Enter Monthly Expenses:</h4>
@@ -81,6 +88,9 @@ const BudgetPlanner = () => {
             </div>
           )
       )}
+      <button type='submit' onClick={generateInsights}>
+        Get insights
+      </button>
       <h4>Insights:</h4>
       <p className="insights">{insights}</p> {/* Updated to include insights class */}
     </div>
